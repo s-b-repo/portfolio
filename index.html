@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stephan Botes — Cyber Security Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080c10;
+  --bg2:#0d1117;
+  --bg3:#161b22;
+  --border:#21262d;
+  --border2:#30363d;
+  --text:#e6edf3;
+  --text2:#8b949e;
+  --text3:#484f58;
+  --green:#3fb950;
+  --green2:#238636;
+  --blue:#58a6ff;
+  --blue2:#1f6feb;
+  --orange:#e3b341;
+  --red:#f85149;
+  --teal:#39d353;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'IBM Plex Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(8,12,16,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  height:56px;
+}
+.nav-brand{
+  font-family:'Rajdhani',sans-serif;
+  font-size:18px;font-weight:700;
+  color:var(--green);
+  letter-spacing:0.05em;
+}
+.nav-brand span{color:var(--text2);}
+.nav-links{display:flex;gap:0.25rem;}
+.nav-links a{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;color:var(--text2);
+  text-decoration:none;cursor:pointer;
+  padding:6px 12px;border-radius:6px;
+  transition:all 0.2s;
+}
+.nav-links a:hover{color:var(--text);background:var(--bg3);}
+.nav-tab{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;cursor:pointer;
+  padding:6px 14px;border-radius:6px;
+  border:1px solid var(--border2);
+  background:transparent;color:var(--text2);
+  transition:all 0.2s;
+}
+.nav-tab.active{
+  background:var(--green2);
+  border-color:var(--green);
+  color:#fff;
+}
+.nav-tab:hover:not(.active){color:var(--text);background:var(--bg3);}
+.nav-tabs{display:flex;gap:6px;}
+
+/* SECTIONS */
+.page{display:none;}
+.page.active{display:block;}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:80px 2rem 4rem;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(63,185,80,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(63,185,80,0.03) 1px, transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;
+}
+.hero-inner{max-width:900px;margin:0 auto;width:100%;}
+.hero-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;color:var(--green);
+  letter-spacing:0.1em;
+  margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:8px;
+}
+.hero-tag::before{content:'';display:block;width:32px;height:1px;background:var(--green);}
+h1{
+  font-family:'Rajdhani',sans-serif;
+  font-size:clamp(3rem,8vw,6rem);
+  font-weight:700;
+  line-height:0.95;
+  letter-spacing:-0.01em;
+  margin-bottom:1.5rem;
+}
+h1 .name-last{color:var(--green);}
+.hero-sub{
+  font-size:1.1rem;color:var(--text2);
+  max-width:560px;
+  margin-bottom:2.5rem;
+  line-height:1.7;
+}
+.hero-contacts{
+  display:flex;flex-wrap:wrap;gap:1rem;
+  margin-bottom:3rem;
+}
+.contact-item{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;color:var(--text2);
+  display:flex;align-items:center;gap:6px;
+  text-decoration:none;
+  transition:color 0.2s;
+}
+.contact-item:hover{color:var(--green);}
+.contact-item .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--green);flex-shrink:0;
+}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  padding:4px 10px;
+  border-radius:4px;
+  border:1px solid var(--border);
+  color:var(--text2);
+  background:var(--bg3);
+}
+
+/* SECTION */
+section{max-width:900px;margin:0 auto;padding:5rem 2rem;}
+.section-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--green);
+  letter-spacing:0.12em;text-transform:uppercase;
+  margin-bottom:0.75rem;
+}
+h2{
+  font-family:'Rajdhani',sans-serif;
+  font-size:2rem;font-weight:700;
+  margin-bottom:2rem;
+  letter-spacing:-0.01em;
+}
+.divider{
+  width:100%;height:1px;
+  background:var(--border);
+  margin-bottom:3rem;
+}
+
+/* ABOUT */
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3rem;
+  align-items:start;
+}
+.about-text p{color:var(--text2);margin-bottom:1rem;line-height:1.8;}
+.about-stats{display:flex;flex-direction:column;gap:12px;}
+.stat-row{
+  display:flex;align-items:baseline;
+  justify-content:space-between;
+  padding:10px 16px;
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:8px;
+}
+.stat-num{
+  font-family:'Rajdhani',sans-serif;
+  font-size:2rem;font-weight:700;
+  color:var(--green);
+}
+.stat-label{font-size:13px;color:var(--text2);}
+
+/* SKILLS */
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1rem;
+}
+.skill-card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:1.25rem;
+  transition:border-color 0.2s;
+}
+.skill-card:hover{border-color:var(--border2);}
+.skill-card-title{
+  font-family:'Rajdhani',sans-serif;
+  font-size:1rem;font-weight:600;
+  margin-bottom:0.75rem;
+  color:var(--blue);
+  letter-spacing:0.03em;
+}
+.skill-list{list-style:none;}
+.skill-list li{
+  font-size:13px;color:var(--text2);
+  padding:3px 0;
+  display:flex;align-items:center;gap:8px;
+}
+.skill-list li::before{
+  content:'';width:4px;height:4px;
+  border-radius:50%;background:var(--green);
+  flex-shrink:0;
+}
+
+/* EXPERIENCE */
+.exp-entry{
+  display:grid;
+  grid-template-columns:180px 1fr;
+  gap:2rem;
+  margin-bottom:3rem;
+  padding-bottom:3rem;
+  border-bottom:1px solid var(--border);
+}
+.exp-entry:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.exp-meta{padding-top:4px;}
+.exp-period{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;color:var(--green);
+  margin-bottom:4px;
+}
+.exp-company{
+  font-size:13px;color:var(--text2);
+}
+.exp-role{
+  font-family:'Rajdhani',sans-serif;
+  font-size:1.2rem;font-weight:600;
+  margin-bottom:0.75rem;
+}
+.exp-bullets{list-style:none;}
+.exp-bullets li{
+  font-size:14px;color:var(--text2);
+  padding:3px 0;
+  display:flex;gap:10px;
+  line-height:1.6;
+}
+.exp-bullets li::before{
+  content:'—';color:var(--green);flex-shrink:0;
+  font-family:'IBM Plex Mono',monospace;
+}
+
+/* CERTS */
+.certs-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:2rem;
+}
+.cert-item{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:12px 16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.cert-badge{
+  width:36px;height:36px;
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;font-weight:500;
+  flex-shrink:0;
+}
+.cert-badge.comptia{background:rgba(227,179,65,0.15);color:var(--orange);}
+.cert-badge.thm{background:rgba(63,185,80,0.15);color:var(--green);}
+.cert-badge.ms{background:rgba(88,166,255,0.15);color:var(--blue);}
+.cert-badge.vendor{background:rgba(248,81,73,0.15);color:var(--red);}
+.cert-name{font-size:13px;font-weight:500;margin-bottom:2px;}
+.cert-code{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;color:var(--text3);
+}
+
+/* PROJECTS */
+.proj-category{margin-bottom:2.5rem;}
+.proj-category-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--text2);
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:6px 0;
+  border-bottom:1px solid var(--border);
+  margin-bottom:1rem;
+}
+.proj-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:10px;
+}
+.proj-card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:14px 16px;
+  transition:border-color 0.2s,background 0.2s;
+  cursor:default;
+}
+.proj-card:hover{
+  border-color:var(--border2);
+  background:var(--bg3);
+}
+.proj-name{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;font-weight:500;
+  color:var(--blue);
+  margin-bottom:4px;
+}
+.proj-desc{font-size:12.5px;color:var(--text2);line-height:1.5;}
+
+/* LANGUAGES */
+.lang-row{
+  display:flex;gap:1.5rem;
+}
+.lang-item{
+  display:flex;align-items:center;gap:10px;
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:10px 16px;
+}
+.lang-name{font-weight:500;font-size:14px;}
+.lang-level{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--text2);
+}
+
+/* COVER LETTER */
+.cl-page{max-width:780px;margin:0 auto;padding:5rem 2rem;}
+.cl-header{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:2rem;
+  background:var(--bg2);
+  margin-bottom:2rem;
+}
+.cl-sender{
+  font-family:'Rajdhani',sans-serif;
+  font-size:1.5rem;font-weight:700;
+}
+.cl-sender-sub{font-size:13px;color:var(--text2);margin-top:4px;}
+.cl-contacts{
+  display:flex;flex-wrap:wrap;gap:16px;
+  margin-top:1rem;
+}
+.cl-contact{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--text2);
+  display:flex;align-items:center;gap:6px;
+}
+.cl-body{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:2.5rem;
+}
+.cl-date{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;color:var(--text2);
+  margin-bottom:1.5rem;
+}
+.cl-recipient{
+  font-size:14px;
+  margin-bottom:1.5rem;
+  padding-bottom:1.5rem;
+  border-bottom:1px solid var(--border);
+}
+.cl-recipient .field{
+  color:var(--orange);
+  font-style:italic;
+}
+.cl-subject{
+  font-family:'Rajdhani',sans-serif;
+  font-size:1.1rem;font-weight:600;
+  margin-bottom:1.5rem;
+  color:var(--green);
+}
+.cl-para{
+  color:var(--text2);
+  line-height:1.9;
+  margin-bottom:1.25rem;
+  font-size:14px;
+}
+.cl-closing{margin-top:2rem;}
+.cl-closing p{color:var(--text2);font-size:14px;margin-bottom:4px;}
+.cl-sig{
+  font-family:'Rajdhani',sans-serif;
+  font-size:1.5rem;font-weight:700;
+  margin-top:1rem;
+}
+
+/* PRINT BUTTON */
+.print-btn{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  padding:8px 18px;
+  border-radius:6px;
+  border:1px solid var(--border2);
+  background:transparent;
+  color:var(--text2);
+  cursor:pointer;
+  transition:all 0.2s;
+}
+.print-btn:hover{background:var(--bg3);color:var(--text);}
+
+@media (max-width:700px){
+  .about-grid,.skills-grid,.certs-grid{grid-template-columns:1fr;}
+  .exp-entry{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+}
+@media print{
+  nav{display:none;}
+  body{background:#fff;color:#000;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">SB<span>_sec</span></div>
+  <div class="nav-links">
+    <a onclick="scrollToSection('about')">about</a>
+    <a onclick="scrollToSection('skills')">skills</a>
+    <a onclick="scrollToSection('experience')">experience</a>
+    <a onclick="scrollToSection('certs')">certs</a>
+    <a onclick="scrollToSection('projects')">projects</a>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('portfolio',this)">portfolio</button>
+    <button class="nav-tab" onclick="showPage('coverletter',this)">cover letter</button>
+  </div>
+</nav>
+
+<!-- PORTFOLIO -->
+<div id="portfolio" class="page active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">Cyber Security Engineer</div>
+      <h1>Stephan <span class="name-last">Botes</span></h1>
+      <p class="hero-sub">Offensive &amp; defensive security specialist with 3+ years of professional experience. Self-taught since 16. I break systems to fix them—and build tools that keep them fixed.</p>
+      <div class="hero-contacts">
+        <a href="mailto:stephanbotesIT@protonmail.me" class="contact-item"><span class="dot"></span>stephanbotesIT@protonmail.me</a>
+        <a href="https://github.com/s-b-repo" class="contact-item" target="_blank"><span class="dot"></span>github.com/s-b-repo</a>
+        <span class="contact-item"><span class="dot"></span>Pretoria, Gauteng, ZA</span>
+        <a href="https://tryhackme.com/p/adeathsecmember" class="contact-item" target="_blank"><span class="dot"></span>THM: adeathsecmember</a>
+      </div>
+      <div class="hero-chips">
+        <span class="chip">Rust</span><span class="chip">Go</span><span class="chip">Python</span>
+        <span class="chip">C</span><span class="chip">PowerShell</span><span class="chip">Bash</span>
+        <span class="chip">Burp Suite</span><span class="chip">Wazuh</span><span class="chip">Kali Linux</span>
+        <span class="chip">280+ GitHub repos</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">001 / about</div>
+    <h2>Who I Am</h2>
+    <div class="divider"></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Self-taught cyber security professional with a passion for understanding systems at the lowest level—then exploiting or hardening them depending on which side of the engagement I'm on.</p>
+        <p>I started learning at 16 out of pure curiosity. Today I run authorised penetration tests, build custom tooling in Rust and Go, automate defensive pipelines, and communicate risk clearly to non-technical stakeholders.</p>
+        <p>I hold the full CompTIA stack (A+, Network+, Security+) alongside vendor and platform certifications, and I contribute actively to the open-source security community.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-row">
+          <div class="stat-label">Years of Experience</div>
+          <div class="stat-num">3+</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Public Repositories</div>
+          <div class="stat-num">280+</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Certifications Held</div>
+          <div class="stat-num">9</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">THM Learning Hours</div>
+          <div class="stat-num">96+</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">002 / competencies</div>
+    <h2>Core Skills</h2>
+    <div class="divider"></div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-card-title">Offensive Security</div>
+        <ul class="skill-list">
+          <li>Web App Penetration Testing</li>
+          <li>Network Penetration Testing</li>
+          <li>Vulnerability Research</li>
+          <li>Exploit Development</li>
+          <li>Red &amp; Purple Team Ops</li>
+          <li>Social Engineering</li>
+          <li>Physical Security Testing</li>
+          <li>OSINT &amp; Reconnaissance</li>
+          <li>Detection-Bypass Testing</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">Defensive Security</div>
+        <ul class="skill-list">
+          <li>Linux Hardening (Debian, Arch)</li>
+          <li>Windows Endpoint Hardening</li>
+          <li>Email Security (Clearswift)</li>
+          <li>SIEM/EDR (Wazuh, Elastic)</li>
+          <li>Secure Network Design</li>
+          <li>Risk &amp; Impact Assessment</li>
+          <li>Security Auditing &amp; Reporting</li>
+          <li>Incident Response</li>
+          <li>DFIR Automation</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">Tooling &amp; Platforms</div>
+        <ul class="skill-list">
+          <li>Rust, Go, Python, C</li>
+          <li>PowerShell, Bash</li>
+          <li>Burp Suite, OWASP ZAP</li>
+          <li>QEMU/KVM Virtualization</li>
+          <li>Kali Linux, Docker</li>
+          <li>Shodan &amp; OSINT Frameworks</li>
+          <li>Microsoft Azure (Fundamentals)</li>
+          <li>Custom Tooling Development</li>
+          <li>Reverse Engineering</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-label">003 / experience</div>
+    <h2>Professional History</h2>
+    <div class="divider"></div>
+
+    <div class="exp-entry">
+      <div class="exp-meta">
+        <div class="exp-period">2024 — Present</div>
+        <div class="exp-company">BottomlineIT<br>Wild Fig Business Park, ZA</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Cyber Security Engineer</div>
+        <ul class="exp-bullets">
+          <li>Performed authorised web application and network penetration tests; documented findings, business impact, and remediation roadmaps for clients.</li>
+          <li>Conducted purple team exercises and social engineering assessments to validate SOC detection and end-user resilience.</li>
+          <li>Deployed, tuned, and maintained Clearswift Secure Email Gateway to reduce phishing and malware delivery across SMB clients.</li>
+          <li>Designed secure, redundant network infrastructure—segmentation, failover, and access control—for client sites.</li>
+          <li>Hardened Linux (Debian, Arch) and Windows endpoints: patching, configuration review, access controls, and logging.</li>
+          <li>Liaised with clients and internal teams, translating technical risk into business language and actionable remediation plans.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-entry">
+      <div class="exp-meta">
+        <div class="exp-period">Jan 2023 — 2024</div>
+        <div class="exp-company">Doing Culture Consulting</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">OSINT Analyst &amp; Asset Tracing Specialist</div>
+        <ul class="exp-bullets">
+          <li>Conducted OSINT investigations supporting asset tracing and due-diligence engagements for client decision-making.</li>
+          <li>Built target profiles from publicly available sources across web, social media, and corporate registries.</li>
+          <li>Maintained strict operational security and data-handling standards for sensitive investigative work.</li>
+          <li>Produced structured intelligence reports with verifiable sourcing and clear chain of evidence.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certs">
+    <div class="section-label">004 / certifications</div>
+    <h2>Credentials</h2>
+    <div class="divider"></div>
+    <div class="certs-grid">
+      <div class="cert-item">
+        <div class="cert-badge comptia">CompTIA</div>
+        <div><div class="cert-name">Security+ (CE)</div><div class="cert-code">FD62G1XS3M1EQ1WQ</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-badge comptia">CompTIA</div>
+        <div><div class="cert-name">Network+ (CE)</div><div class="cert-code">TLYKCBXYG1E41QGT</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-badge comptia">CompTIA</div>
+        <div><div class="cert-name">A+ (CE)</div><div class="cert-code">8WKMCWYFVK4Q1P9M</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-badge comptia">CompTIA</div>
+        <div><div class="cert-name">CSIS &amp; CIOS Stackable</div><div class="cert-code">Candidate ID: COMP001021877443</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-badge vendor">Fortra</div>
+        <div><div class="cert-name">Clearswift Secure Email Gateway</div><div class="cert-code">Product Certification — Fortra Education Services</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-badge ms">Azure</div>
+        <div><div class="cert-name">Microsoft Azure Fundamentals</div><div class="cert-code">All modules completed Jan 2026</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-badge thm">THM</div>
+        <div><div class="cert-name">Security Engineer Path</div><div class="cert-code">THM-MPJKJCSJGJ · 64h 30m</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-badge thm">THM</div>
+        <div><div class="cert-name">CompTIA Pentest+ Path</div><div class="cert-code">THM-K4B4QICSLD · 32h 10m</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-badge thm">THM</div>
+        <div><div class="cert-name">Jr Penetration Tester Path</div><div class="cert-code">THM-G04VG5RNSP</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-badge thm">THM</div>
+        <div><div class="cert-name">Web Fundamentals Path</div><div class="cert-code">THM-KMBQX5NOGW</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">005 / open-source</div>
+    <h2>Selected Projects</h2>
+    <div class="divider"></div>
+    <p style="color:var(--text2);font-size:13px;margin-bottom:2rem;">All tools are built for authorised testing and educational purposes. Full list at <a href="https://github.com/s-b-repo" style="color:var(--blue);" target="_blank">github.com/s-b-repo</a> (280+ repos).</p>
+
+    <div class="proj-category">
+      <div class="proj-category-title">Reconnaissance &amp; Scanning</div>
+      <div class="proj-grid">
+        <div class="proj-card"><div class="proj-name">Stalkroute</div><div class="proj-desc">Advanced traceroute tool aimed at offensive recon workflows.</div></div>
+        <div class="proj-card"><div class="proj-name">Quicmap</div><div class="proj-desc">Lightweight port scanner targeting QUIC-protocol services.</div></div>
+        <div class="proj-card"><div class="proj-name">mass-dorker</div><div class="proj-desc">Python-based mass-dorking framework for search-engine reconnaissance.</div></div>
+        <div class="proj-card"><div class="proj-name">Voyage</div><div class="proj-desc">Stateful subdomain enumeration toolkit.</div></div>
+        <div class="proj-card"><div class="proj-name">Advanced Shodan Requests</div><div class="proj-desc">Curated Shodan query library for device and vulnerability discovery.</div></div>
+      </div>
+    </div>
+
+    <div class="proj-category">
+      <div class="proj-category-title">Exploitation Frameworks &amp; C2</div>
+      <div class="proj-grid">
+        <div class="proj-card"><div class="proj-name">Rustsploit</div><div class="proj-desc">Modular offensive-security framework in Rust. Memory-safe. Active since Jan 2024.</div></div>
+        <div class="proj-card"><div class="proj-name">FireC2</div><div class="proj-desc">Rust-based C2 server leveraging Firefox exploitation primitives.</div></div>
+        <div class="proj-card"><div class="proj-name">Terylene</div><div class="proj-desc">Modified Mirai botnet with Go/ZeroMQ C2 for malware analysis and detection engineering.</div></div>
+        <div class="proj-card"><div class="proj-name">Revil-DNS</div><div class="proj-desc">Sliver-compatible C2 payload using DNS tunnelling, written in C.</div></div>
+        <div class="proj-card"><div class="proj-name">Rust Slowloris</div><div class="proj-desc">Slowloris-style HTTP DoS reimplemented in Rust for resilience testing.</div></div>
+      </div>
+    </div>
+
+    <div class="proj-category">
+      <div class="proj-category-title">Covert Channels &amp; Vulnerability Research</div>
+      <div class="proj-grid">
+        <div class="proj-card"><div class="proj-name">ping0-exfil</div><div class="proj-desc">ICMP covert C2/data-exfiltration channel for defensive signature development.</div></div>
+        <div class="proj-card"><div class="proj-name">I2P Zero-Day Exploits (2026)</div><div class="proj-desc">Independent vulnerability research on the I2P anonymous-network stack (Mar 2026).</div></div>
+        <div class="proj-card"><div class="proj-name">I2P Traffic Padding Plugin</div><div class="proj-desc">Cover-traffic plugin for the I2P anonymity network.</div></div>
+      </div>
+    </div>
+
+    <div class="proj-category">
+      <div class="proj-category-title">Defensive Engineering &amp; DFIR</div>
+      <div class="proj-grid">
+        <div class="proj-card"><div class="proj-name">Wazuh Auto Setup</div><div class="proj-desc">Automated Wazuh SIEM/EDR deployment for blue-team labs and small environments.</div></div>
+        <div class="proj-card"><div class="proj-name">Elastacat</div><div class="proj-desc">One-step Elastic Stack installer for rapid SIEM/log pipeline bring-up.</div></div>
+        <div class="proj-card"><div class="proj-name">RBSL</div><div class="proj-desc">Rust/Bash SIEM logger pipeline for security event collection.</div></div>
+        <div class="proj-card"><div class="proj-name">Rubberup</div><div class="proj-desc">Rust-based security audit checker for Arch Linux baselines.</div></div>
+      </div>
+    </div>
+
+    <div class="proj-category">
+      <div class="proj-category-title">Web App &amp; API Security</div>
+      <div class="proj-grid">
+        <div class="proj-card"><div class="proj-name">WPSripper</div><div class="proj-desc">WordPress attack and assessment script for Kali Linux engagements.</div></div>
+        <div class="proj-card"><div class="proj-name">SkiddedSQL</div><div class="proj-desc">Curated SQL-injection payload library for pentesting.</div></div>
+        <div class="proj-card"><div class="proj-name">API DoS Tester</div><div class="proj-desc">API stress-testing and rate-limit evaluation tool.</div></div>
+        <div class="proj-card"><div class="proj-name">Web App Security Checklist</div><div class="proj-desc">Comprehensive web-security testing checklist used in client engagements.</div></div>
+      </div>
+    </div>
+
+    <div class="proj-category">
+      <div class="proj-category-title">Malware Analysis &amp; Detection Engineering</div>
+      <div class="proj-grid">
+        <div class="proj-card"><div class="proj-name">LOLBAS Payload Repo</div><div class="proj-desc">Living-off-the-land payload set for endpoint-detection research.</div></div>
+        <div class="proj-card"><div class="proj-name">PS1ware</div><div class="proj-desc">PowerShell malware techniques library for blue-team detection development.</div></div>
+        <div class="proj-card"><div class="proj-name">Eternal Green</div><div class="proj-desc">Windows LNK malware-dropper sample for detection engineering.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LANGUAGES -->
+  <section>
+    <div class="section-label">006 / languages</div>
+    <h2>Languages</h2>
+    <div class="divider"></div>
+    <div class="lang-row">
+      <div class="lang-item"><div class="lang-name">English</div><div class="lang-level">Native</div></div>
+      <div class="lang-item"><div class="lang-name">Afrikaans</div><div class="lang-level">Native</div></div>
+      <div class="lang-item"><div class="lang-name">Japanese</div><div class="lang-level">Basic</div></div>
+    </div>
+    <p style="color:var(--text3);font-size:13px;margin-top:3rem;font-family:'IBM Plex Mono',monospace;text-align:center;">
+      References available on request — contactable professional references from previous clients and projects.
+    </p>
+  </section>
+
+</div><!-- /portfolio -->
+
+<!-- COVER LETTER -->
+<div id="coverletter" class="page">
+  <div class="cl-page">
+    <div style="padding-top:1rem;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center;">
+      <div class="section-label" style="margin:0;">Cover Letter</div>
+      <button class="print-btn" onclick="window.print()">print / save PDF</button>
+    </div>
+
+    <div class="cl-header">
+      <div class="cl-sender">Stephan Botes</div>
+      <div class="cl-sender-sub">Cyber Security Engineer · Offensive &amp; Defensive Security · Tool Developer</div>
+      <div class="cl-contacts">
+        <div class="cl-contact"><span style="color:var(--green)">✦</span> stephanbotesIT@protonmail.me</div>
+        <div class="cl-contact"><span style="color:var(--green)">✦</span> github.com/s-b-repo</div>
+        <div class="cl-contact"><span style="color:var(--green)">✦</span> Pretoria, Gauteng, South Africa</div>
+        <div class="cl-contact"><span style="color:var(--green)">✦</span> Credly: stephan-botes</div>
+      </div>
+    </div>
+
+    <div class="cl-body">
+      <div class="cl-date" id="cl-date"></div>
+
+      <p class="cl-para">Dear Hiring Manager,</p>
+
+      <p class="cl-para">I am writing to express my strong interest in this position. With over three years of hands-on experience spanning offensive operations, defensive engineering, and security tool development, I bring a rare blend of attacker mindset and builder's pragmatism that aligns directly with modern security needs. My self-taught journey began at age 16, and today I deliver measurable outcomes—breaking systems to fix them and automating defences so they stay fixed.</p>
+
+      <p class="cl-para">In my current role as Cyber Security Engineer at BottomlineIT, I lead authorised web application and network penetration tests, document business impact, and guide remediation. I run purple team exercises and social engineering assessments to validate SOC detection and user resilience. On the defensive side, I deploy and tune Clearswift Secure Email Gateways, harden Linux (Debian/Arch) and Windows endpoints, and design segmented, redundant network architectures. I also bridge the communication gap between technical risk and business language for clients and internal stakeholders.</p>
+
+      <p class="cl-para">My earlier work as an OSINT Analyst at Doing Culture Consulting sharpened my investigative discipline—conducting asset traces, building target profiles from public data, and maintaining strict evidence-handling standards. This investigative DNA now feeds directly into my reconnaissance and threat-modelling work.</p>
+
+      <p class="cl-para">I hold the full CompTIA stack (A+, Network+, Security+) with CSIS and CIOS specialisations, along with a Fortra Clearswift product certification and multiple TryHackMe learning path completions (Security Engineer, Pentest+, Jr Penetration Tester, Web Fundamentals). I've also completed Microsoft Azure Fundamentals coursework, giving me a solid cloud-concepts foundation.</p>
+
+      <p class="cl-para">Beyond formal roles, I am an active open-source security researcher. My GitHub (s-b-repo) hosts over 280 public repositories—covering custom reconnaissance frameworks, exploitation tooling including a Rust-based modular framework, covert-channel research, DFIR automation, and malware analysis. I code primarily in Rust, Go, Python, PowerShell, Bash, and C, building tools that solve real problems for red and blue teams alike.</p>
+
+      <p class="cl-para">I am direct, outcome-focused, and constantly learning. I would welcome the opportunity to discuss how my offensive/defensive skill set and tool-building capability can strengthen your organisation's security posture. Thank you for your time and consideration.</p>
+
+      <div class="cl-closing">
+        <p>Sincerely,</p>
+        <div class="cl-sig">Stephan Botes</div>
+        <p style="margin-top:8px;color:var(--text3);font-family:'IBM Plex Mono',monospace;font-size:11px;">stephanbotesIT@protonmail.me · github.com/s-b-repo</p>
+      </div>
+    </div>
+
+      <p style="color:var(--text3);font-size:12px;font-family:'IBM Plex Mono',monospace;text-align:center;margin-top:2rem;padding-bottom:3rem;">
+      Use print / save PDF for a clean copy.
+    </p>
+  </div>
+</div>
+
+<script>
+function scrollToSection(id){
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth'});
+}
+function showPage(id, btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+const d = new Date();
+const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const el = document.getElementById('cl-date');
+if(el) el.textContent = d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+</script>
+</body>
+</html>
